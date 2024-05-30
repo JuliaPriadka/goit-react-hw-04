@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { MagnifyingGlass } from 'react-loader-spinner';
+import './App.css';
+import SearchBar from './Components/SearchBar/SearchBar';
+import getArticles from './articles-api';
+import ImageGallery from './Components/ImageGallery/ImageGallery';
+import ErrorMessage from './Components/ErrorMessage/ErrorMessage';
+import LoadMoreBtn from './Components/LoadMoreBtn/LoadMoreBtn';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [newData, setNewData] = useState([]);
+  const [loader, setLoader] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
+
+  async function handleSearch(searchQuery) {
+    if (searchQuery.trim() === '') {
+      return;
+    }
+
+    try {
+      setLoader(true);
+      setErrorMsg(false);
+      setNewData([]);
+      const data = await getArticles(searchQuery);
+      setNewData(data);
+    } catch (error) {
+      setErrorMsg(true);
+    } finally {
+      setLoader(false);
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <SearchBar onSearch={handleSearch} />
+      {errorMsg ? <ErrorMessage /> : <ImageGallery pictures={newData} />}
+      {loader && (
+        <MagnifyingGlass color="rgb(24, 24, 147)" glassColor="yellow" />
+      )}
+      {newData.length > 0 && <LoadMoreBtn />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
