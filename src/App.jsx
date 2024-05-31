@@ -6,6 +6,7 @@ import getArticles from './articles-api';
 import ImageGallery from './Components/ImageGallery/ImageGallery';
 import ErrorMessage from './Components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './Components/LoadMoreBtn/LoadMoreBtn';
+import ImageModal from './Components/ImageModal/ImageModal';
 
 function App() {
   const [newData, setNewData] = useState([]);
@@ -14,6 +15,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [showBtn, setShowBtn] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function getPictures() {
@@ -36,7 +38,7 @@ function App() {
     getPictures();
   }, [query, page]);
 
-  async function handleSearch(searchQuery) {
+  function handleSearch(searchQuery) {
     setNewData([]);
     setQuery(searchQuery);
     setPage(1);
@@ -46,14 +48,29 @@ function App() {
     setPage(page + 1);
   }
 
+  function openModal() {
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {errorMsg ? <ErrorMessage /> : <ImageGallery pictures={newData} />}
+      {errorMsg ? (
+        <ErrorMessage />
+      ) : (
+        <ImageGallery pictures={newData} openModal={openModal} />
+      )}
       {loader && (
         <MagnifyingGlass color="rgb(24, 24, 147)" glassColor="yellow" />
       )}
       {showBtn && <LoadMoreBtn onLoadMoreBtnClick={onLoadMoreBtnClick} />}
+      {isModalOpen && (
+        <ImageModal onRequestClose={closeModal} isOpen={isModalOpen} />
+      )}
     </>
   );
 }
