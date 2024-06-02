@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import './App.css';
-import SearchBar from './components/SearchBar/SearchBar';
+import SearchBar from './comp/SearchBar/SearchBar';
 import getArticles from './articles-api';
-import ImageGallery from './components/ImageGallery/ImageGallery';
-import ErrorMessage from './components/ErrorMessage/ErrorMessage';
-import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
-import ImageModal from './components/ImageModal/ImageModal';
+import ImageGallery from './comp/ImageGallery/ImageGallery';
+import ErrorMessage from './comp/ErrorMessage/ErrorMessage';
+import LoadMoreBtn from './comp/LoadMoreBtn/LoadMoreBtn';
+import ImageModal from './comp/ImageModal/ImageModal';
 
 function App() {
   const [newData, setNewData] = useState([]);
