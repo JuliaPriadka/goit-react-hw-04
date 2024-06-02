@@ -1,4 +1,4 @@
-import css from '../ImageCard/ImageCard.module.css';
+import css from './ImageCard.module.css';
 
 export default function ImageCard({ picture, openModal }) {
   return (

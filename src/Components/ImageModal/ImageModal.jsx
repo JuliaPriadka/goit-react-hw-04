@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import css from '../ImageModal/ImageModal.module.css';
+import css from './ImageModal.module.css';
 
 export default function ImageModal({ onRequestClose, isOpen, fullSrc, alt }) {
   return (

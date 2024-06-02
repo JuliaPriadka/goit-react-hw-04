@@ -1,4 +1,4 @@
-import css from '../SearchBar/SearchBar.module.css';
+import css from './SearchBar.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function SearchBar({ onSearch }) {
