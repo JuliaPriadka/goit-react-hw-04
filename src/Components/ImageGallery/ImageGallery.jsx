@@ -5,11 +5,8 @@ export default function ImageGallery({ pictures, openModal }) {
   return (
     <ul className={css.gallery}>
       {pictures.map(picture => (
-        <li key={picture.id} onClick={openModal}>
-          <ImageCard
-            imgAlt={picture.alt_description}
-            imgSrc={picture.urls.small}
-          />
+        <li key={picture.id}>
+          <ImageCard picture={picture} openModal={openModal} />
         </li>
       ))}
     </ul>

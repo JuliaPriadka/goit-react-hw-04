@@ -16,6 +16,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [showBtn, setShowBtn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     async function getPictures() {
@@ -48,11 +49,13 @@ function App() {
     setPage(page + 1);
   }
 
-  function openModal() {
+  function openModal(image) {
+    setModalImage(image);
     setIsModalOpen(true);
   }
 
   function closeModal() {
+    setModalImage(null);
     setIsModalOpen(false);
   }
 
@@ -69,7 +72,12 @@ function App() {
       )}
       {showBtn && <LoadMoreBtn onLoadMoreBtnClick={onLoadMoreBtnClick} />}
       {isModalOpen && (
-        <ImageModal onRequestClose={closeModal} isOpen={isModalOpen} />
+        <ImageModal
+          onRequestClose={closeModal}
+          isOpen={isModalOpen}
+          fullSrc={modalImage.urls.regular}
+          alt={modalImage.alt_description}
+        />
       )}
     </>
   );

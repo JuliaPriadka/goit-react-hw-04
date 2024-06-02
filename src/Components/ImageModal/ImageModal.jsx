@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
+import css from '../ImageModal/ImageModal.module.css';
 
-export default function ImageModal({ onRequestClose, isOpen }) {
+export default function ImageModal({ onRequestClose, isOpen, fullSrc, alt }) {
   return (
     <Modal
       onRequestClose={onRequestClose}
@@ -9,8 +10,12 @@ export default function ImageModal({ onRequestClose, isOpen }) {
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.75)',
         },
+        content: {
+          padding: '0',
+          overflow: 'hidden',
+        },
       }}>
-      <img src="" alt="" />
+      <img src={fullSrc} alt={alt} className={css.modalImg} />
     </Modal>
   );
 }
