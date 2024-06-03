@@ -5,13 +5,14 @@ export default function SearchBar({ onSearch }) {
   function handleSubmit(e) {
     e.preventDefault();
     const dataToSearch = e.target.search.value;
-    onSearch(dataToSearch);
-    e.target.reset();
+
     if (dataToSearch.trim() === '') {
       toast.error('Please, enter search query', {
         duration: 2000,
       });
     }
+    onSearch(dataToSearch);
+    e.target.reset();
   }
 
   return (
